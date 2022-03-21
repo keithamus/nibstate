@@ -1,0 +1,34 @@
+{
+  "root": true,
+  "plugins": ["github"],
+  "extends": ["plugin:github/recommended", "plugin:github/typescript", "plugin:github/browser"],
+  "rules": {
+    "no-invalid-this": "off",
+    "@typescript-eslint/no-explicit-any": ["off"],
+    "@typescript-eslint/ban-types": ["off"],
+    "@typescript-eslint/no-invalid-this": ["error"],
+    "@typescript-eslint/consistent-type-imports": ["error", {"prefer": "type-imports"}]
+  },
+  "overrides": [
+    {
+      "files": "test/*",
+      "rules": {
+        "@typescript-eslint/no-empty-function": "off",
+        "import/no-deprecated": "off"
+      },
+      "globals": {
+        "chai": false,
+        "expect": false
+      },
+      "env": {
+        "mocha": true
+      }
+    },
+    {
+      "files": "*.cjs",
+      "env": {
+        "node": true
+      }
+    }
+  ]
+}

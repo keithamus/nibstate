@@ -1,0 +1,14 @@
+{
+  "include": ["src", "__tests__"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "esModuleInterop": true,
+    "lib": ["es2020"],
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "noEmit": false,
+    "sourceMap": true,
+    "strict": true,
+    "target": "ES2019"
+  }
+}
