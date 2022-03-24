@@ -1,11 +1,15 @@
 // The `Get` type is a function that is passed to the Nib initializer
 export type Get<T = any, S extends Nib<T> = Nib<T>> = (s: S) => S extends Nib<infer I> ? I : never
 
-export class Nib<T> implements AsyncIterable<T> {
-  #value
-  #nexts = new Set<(v: T) => void>()
+interface PrivateState<T> {
+  v: T
+  n: Set<(v: T) => void>
+}
 
+const states = new WeakMap<Nib<unknown>, PrivateState<unknown>>()
+export class Nib<T> implements AsyncIterable<T> {
   constructor(init: T | ((get: Get<any>) => T)) {
+    states.set(this, {v: init, n: new Set()})
     if (typeof init === 'function') {
       const clears = new Set<() => void>()
       const next = () => {
@@ -18,25 +22,27 @@ export class Nib<T> implements AsyncIterable<T> {
       }
       next()
     } else {
-      this.#value = init as T
+      this.value = init
     }
   }
 
   get value(): T {
-    return this.#value!
+    return (states.get(this) as PrivateState<T>).v
   }
 
   set value(value: T) {
-    if (Object.is(this.#value, value)) return
-    this.#value = value
-    const nexts = this.#nexts
-    this.#nexts = new Set()
-    for (const next of nexts) next(value)
+    const state = states.get(this) as PrivateState<T>
+    if (Object.is(state.v, value)) return
+    state.v = value
+    const pastNexts = state.n
+    state.n = new Set()
+    for (const next of pastNexts) next(value)
   }
 
   next(fn: (v: T) => void): () => void {
-    this.#nexts.add(fn)
-    return () => this.#nexts.delete(fn)
+    const state = states.get(this) as PrivateState<T>
+    state.n.add(fn)
+    return () => state.n.delete(fn)
   }
 
   map<B>(fn: (v: T) => B): Nib<B> {
