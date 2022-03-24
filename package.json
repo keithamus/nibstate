@@ -1,6 +1,6 @@
 {
   "name": "nibstate",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An attempt to make the smallest and easiest to learn state management solution",
   "homepage": "https://keithamus.github.io/nibstate",
   "bugs": {
