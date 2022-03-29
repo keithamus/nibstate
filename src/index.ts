@@ -68,3 +68,5 @@ export function set<T>(x: Nib<T>, value: T): void {
 export function nib<T>(init: T | ((get: Get<any>) => T)): Nib<T> {
   return new Nib(init)
 }
+nib.set = set
+nib.get = get

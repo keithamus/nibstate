@@ -1,4 +1,4 @@
-import {Nib, nib} from '../src/index'
+import {Nib, nib, get, set} from '../src/index'
 import type {Get} from '../src/index'
 
 describe('nib', () => {
@@ -6,6 +6,11 @@ describe('nib', () => {
     const s = nib('foo')
     expect(s).toBeInstanceOf(Nib)
     expect(s).toStrictEqual(new Nib('foo'))
+  })
+
+  it('has nib.get/nib.set funtions', () => {
+    expect(nib.get).toStrictEqual(nib.get)
+    expect(nib.set).toStrictEqual(nib.set)
   })
 
   describe('((type checks))', () => {
@@ -18,6 +23,19 @@ describe('nib', () => {
     // @ts-expect-error conflicting type as s is Nib<string>
     s.value = 1
   })
+})
+
+describe('get/set', () => {
+
+  it('gets/sets a nib value', () => {
+    const s = nib('foo')
+    expect(nib.get(s)).toStrictEqual('foo')
+    nib.set(s, 'bar')
+    expect(nib.get(s)).toStrictEqual('bar')
+    set(s, 'baz')
+    expect(get(s)).toStrictEqual('baz')
+  })
+
 })
 
 describe('Nib', () => {
