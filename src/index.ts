@@ -55,18 +55,18 @@ export class Nib<T> implements AsyncIterable<T> {
       yield await new Promise(r => this.next(r))
     }
   }
-}
 
-export function get<T>(x: Nib<T>): T {
-  return x.value
-}
+  static get<T>(x: Nib<T>): T {
+    return x.value
+  }
 
-export function set<T>(x: Nib<T>, value: T): void {
-  x.value = value
+  static set<T>(x: Nib<T>, value: T): void {
+    x.value = value
+  }
 }
 
 export function nib<T>(init: T | ((get: Get<any>) => T)): Nib<T> {
   return new Nib(init)
 }
-nib.set = set
-nib.get = get
+export const set = (nib.set = Nib.set)
+export const get = (nib.get = Nib.get)

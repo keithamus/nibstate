@@ -39,6 +39,11 @@ describe('get/set', () => {
 })
 
 describe('Nib', () => {
+  it('has static get/set members', () => {
+    expect(Nib.get).toStrictEqual(nib.get)
+    expect(Nib.set).toStrictEqual(nib.set)
+  })
+
   it('creates a new Nib object with a value getter/setter', () => {
     const s = nib('foo')
     expect(s.value).toBe('foo')
