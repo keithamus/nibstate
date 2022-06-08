@@ -3,7 +3,7 @@
   "compilerOptions": {
     "baseUrl": ".",
     "esModuleInterop": true,
-    "lib": ["es2020"],
+    "lib": ["es2020", "dom"],
     "module": "ESNext",
     "moduleResolution": "node",
     "noEmit": true,
