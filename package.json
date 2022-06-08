@@ -24,22 +24,19 @@
     "lint": "eslint . --ignore-path .gitignore",
     "pretest": "npm run lint && npm run build",
     "prepack": "npm run build",
-    "test": "jest"
+    "test": "web-test-runner"
   },
   "prettier": "@github/prettier-config",
-  "jest": {
-    "preset": "ts-jest"
-  },
   "devDependencies": {
     "@github/prettier-config": "^0.0.4",
-    "@types/jest": "^27.4.1",
+    "@open-wc/testing": "^3.1.5",
     "@typescript-eslint/eslint-plugin": "^5.14.0",
     "@typescript-eslint/parser": "^5.14.0",
+    "@web/dev-server-esbuild": "^0.3.0",
+    "@web/test-runner": "^0.13.30",
     "eslint": "^8.10.0",
     "eslint-plugin-github": "^4.1.1",
-    "jest": "^27.5.1",
     "mini-observable": "^3.0.0",
-    "ts-jest": "^27.1.3",
     "ts-node": "^10.7.0",
     "tslib": "^2.1.0",
     "typescript": "^4.2.2"
